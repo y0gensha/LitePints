@@ -8,6 +8,11 @@ $db = new SQLite3('db/db.db');
 $r = $db->query("select * from taps order by number");
 while ($tap = $r->fetchArray(SQLITE3_ASSOC)) {
   $taps[$tap['number']] = $tap;
+  $taps[$tap['number']]['servingSize'] = $tap['servingSizeValue'] . " " . $tap['servingSizeUnits'];
+  $taps[$tap['number']]['abv'] = calcAbv($tap);
+  $taps[$tap['number']]['kcal'] = calcKcal($tap);
+  $taps[$tap['number']]['unitsEth'] = calcUnitsEth($tap);
+  $taps[$tap['number']]['rgb'] = srmToRgb($tap['srm']);
 }
 $numberOfTaps = sizeof($taps);
 ?>
@@ -37,43 +42,35 @@ $numberOfTaps = sizeof($taps);
  <?php } ?>
 </tr><tr>
  <?php for($i=1; $i<=$numberOfTaps; $i++) { 
-         $srmRgb = isset($taps[$i]['srm']) != "" ? srmToRgb($taps[$i]['srm']) : "220,220,220";
          $container = ($taps[$i]['container']) ? $taps[$i]['container'] : "standardpint&empty=yes";
   ?>
  <td>
-   <img src="img/containerSvg.php?container=<?php echo $container; ?>&rgb=<?php echo $srmRgb; ?>" />
+   <img src="img/containerSvg.php?container=<?php echo $container; ?>&rgb=<?php echo $taps[$i]['rgb']; ?>" />
  </td>
  <?php } ?>
 </tr><tr>
- <?php for ($i=1;$i<=$numberOfTaps; $i++) { ?>
- <td><?php echo $taps[$i]['og'] . " - " . $taps[$i]['fg']; ?></td>
+ <?php for ($i=1;$i<=$numberOfTaps; $i++) {
+         $og = number_format($taps[$i]['og'],3);
+         $fg = number_format($taps[$i]['fg'],3);
+ ?>
+ <td><?php echo "$og - $fg"; ?></td>
  <?php } ?>
 </tr><tr>
  <?php for ($i=1;$i<=$numberOfTaps; $i++) { ?>
  <td><?php echo $taps[$i]['srm'] . " SRM"; ?></td>
  <?php } ?>
 </tr><tr>
- <?php for($i=1; $i<=$numberOfTaps; $i++) { $servingSize = (isset($taps[$i]['servingSizeValue'])) ? $taps[$i]['servingSizeValue']." ".$taps[$i]['servingSizeUnits'] : "&infin;"; ?>
- <td><span><?php echo $servingSize; ?></span></td>
+ <?php for($i=1; $i<=$numberOfTaps; $i++) { ?>
+ <td><span><?php echo $taps[$i]['kcal']." kcal per ".$taps[$i]['servingSize']; ?></span></td>
  <?php } ?>
 </tr><tr>
  <?php for($i=1; $i<=$numberOfTaps; $i++) {
-   $abv = (isset($taps[$i])) ? number_format((($taps[$i]['og']-$taps[$i]['fg'])*131),1,'.',',') : "0";
-   $unitsEth = (isset($taps[$i])) ? calcUnitsEth($taps[$i]) : "0";
  ?>
- <td><?php echo "$abv% ABV<br>$unitsEth units"; ?></span></td>
+ <td><?php echo $taps[$i]['abv']."% ABV<br>".$taps[$i]['unitsEth']." units"; ?></span></td>
  <?php } ?>
 </tr><tr>
  <?php for($i=1; $i<=$numberOfTaps; $i++) {
-   $cal = (isset($taps[$i]['og'])) ? calcKcal($taps[$i])." kcal" : "Zero!";
- ?>
- <td><span><?php echo "$cal"; ?></span></td>
- <?php } ?>
-</tr><tr>
- <?php for($i=1; $i<=$numberOfTaps; $i++) {
-         $ibu = (isset($taps[$i])) ? $taps[$i]['ibu'] : "0";
-         $height = ($taps[$i]['ibu'] > 100) ? 100 : $taps[$i]['ibu']*100/60;
-         $buGu = ($taps[$i]['og'] > 1) ? number_format((($taps[$i]['ibu'])/(($taps[$i]['og']-1)*1000)), 2, '.', '') : "0.00";
+         $ibu = (isset($taps[$i])) ? $taps[$i]['ibu'] : "--";
  ?>
  <td><?php echo "$ibu IBU"; ?></td>
  <?php } ?>
