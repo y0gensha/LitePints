@@ -28,7 +28,9 @@ else { $foamRgb = "255,255,255"; }
             stroke-opacity: 1;
             stroke-width: 2;
   }
-  #foam { fill: rgb(<?php echo $foamRgb; ?>); opacity: 1; }
+  #foam { fill: rgb(<?php echo $foamRgb; ?>);
+          opacity: <?php echo isset($_GET['empty']) ? "0.0" : "1";  ?>;
+  }
 ]]></style>
 <?php readfile("svg_paths/".$_GET['container'].".paths"); ?>
 </svg>

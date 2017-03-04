@@ -28,6 +28,7 @@ Currently <?php echo $tapCount; ?> taps. <a href="addTap.php?number=<?php echo (
   <td><?php echo $tap['servingSizeValue']." ".$tap['servingSizeUnits']; ?></td>
   <td>
    <a href="editTap.php?number=<?php echo $tap['number']; ?>">Edit</a>
+   <a href="emptyTap.php?number=<?php echo $tap['number']; ?>">Empty</a>
    <?php if ($tap['number'] == $tapCount) { ?>
    <a href="deleteTap.php?number=<?php echo $tap['number']; ?>">Delete</a>
    <?php } ?>

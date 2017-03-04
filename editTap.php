@@ -9,12 +9,12 @@ if (isset($_POST['number'])) {
                        name='".$_POST['name']."',
                        style='".$_POST['style']."',
                        brewDate='".$_POST['brewDate']."',
-                       og=".$_POST['og'].",
-                       fg=".$_POST['fg'].",
-                       srm=".$_POST['srm'].",
-                       ibu=".$_POST['ibu'].",
+                       og=".($_POST['og']?$_POST['og']:0).",
+                       fg=".($_POST['fg']?$_POST['fg']:0).",
+                       srm=".($_POST['srm']?$_POST['srm']:0).",
+                       ibu=".($_POST['ibu']?$_POST['ibu']:0).",
                        container='".$_POST['container']."',
-                       servingSizeValue=".$_POST['servingSizeValue'].",
+                       servingSizeValue=".($_POST['servingSizeValue']?$_POST['servingSizeValue']:0).",
                        servingSizeUnits='".$_POST['servingSizeUnits']."'
                       where number=".$_POST['number']);
   if ($r) {

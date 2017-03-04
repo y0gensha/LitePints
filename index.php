@@ -29,7 +29,7 @@ $numberOfTaps = sizeof($taps);
  <td><span class="tapcircle"><?php echo $i; ?></span></td>
  <?php } ?>
 </tr><tr>
- <?php for($i=1; $i<=$numberOfTaps; $i++) { $val = (isset($taps[$i])) ? $taps[$i]['name'] : "Empty"; ?>
+ <?php for($i=1; $i<=$numberOfTaps; $i++) { $val = ($taps[$i]['name'] == "") ? "Empty" : $taps[$i]['name'] ?>
  <td><h2><?php echo $val; ?></h2></td>
  <?php } ?>
 </tr><tr>
@@ -42,7 +42,7 @@ $numberOfTaps = sizeof($taps);
  <?php } ?>
 </tr><tr>
  <?php for($i=1; $i<=$numberOfTaps; $i++) { 
-         $container = ($taps[$i]['container']) ? $taps[$i]['container'] : "standardpint&empty=yes";
+         $container = ($taps[$i]['name'] != "") ? $taps[$i]['container'] : "standardpint&empty=yes";
   ?>
  <td>
    <img src="img/containerSvg.php?container=<?php echo $container; ?>&rgb=<?php echo $taps[$i]['rgb']; ?>" />
