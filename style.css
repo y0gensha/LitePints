@@ -22,6 +22,9 @@ table.mainTable {
 table.mainTable td, table.mainTable th {
   border: 1px solid #999;
 }
+td.notes {
+  vertical-align: top;
+}
 
 /* from RaspberryPints */
 span.tapcircle {

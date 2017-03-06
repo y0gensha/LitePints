@@ -81,7 +81,7 @@ $colWidth = floor(100/$numberOfTaps);
 </tr>
 <tr>
  <?php for($i=1; $i<=$numberOfTaps; $i++) { if (isset($taps[$i])) { $val = $taps[$i]['notes']; } else { $o=array(); exec("/usr/games/fortune -an 200",$o); $val = join("\n",$o); } ?>
- <td><?php echo $val; ?></td>
+ <td class="notes"><?php echo $val; ?></td>
  <?php } ?>
 </tr>
 </table><!-- main table -->
