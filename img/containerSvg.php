@@ -10,6 +10,7 @@ if ($r<60) { $foamRgb = "159,129,112"; }
 elseif ($r<190) { $foamRgb = "255,250,205"; }
 else { $foamRgb = "255,255,255"; }
 
+$fn = preg_replace('/\W+/','',$_GET['container']);
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
@@ -32,5 +33,5 @@ else { $foamRgb = "255,255,255"; }
           opacity: <?php echo isset($_GET['empty']) ? "0.0" : "1";  ?>;
   }
 ]]></style>
-<?php readfile("svg_paths/".$_GET['container'].".paths"); ?>
+<?php readfile("svg_paths/$fn.paths"); ?>
 </svg>
