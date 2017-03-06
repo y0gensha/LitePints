@@ -5,18 +5,28 @@ $db = new SQLite3('db/db.db');
 
 if (isset($_POST['number'])) {
   $tapNo = $_POST['number'];
-  $r=$db->query("update taps set 
-                       name='".$_POST['name']."',
-                       style='".$_POST['style']."',
-                       brewDate='".$_POST['brewDate']."',
-                       og=".($_POST['og']?$_POST['og']:0).",
-                       fg=".($_POST['fg']?$_POST['fg']:0).",
-                       srm=".($_POST['srm']?$_POST['srm']:0).",
-                       ibu=".($_POST['ibu']?$_POST['ibu']:0).",
-                       container='".$_POST['container']."',
-                       servingSizeValue=".($_POST['servingSizeValue']?$_POST['servingSizeValue']:0).",
-                       servingSizeUnits='".$_POST['servingSizeUnits']."'
-                      where number=".$_POST['number']);
+  $s = $db->prepare("update taps set 
+                       name=:name, style=:style, brewDate=:brewDate, og=:og,
+                       fg=:fg, srm=:srm, ibu=:ibu, container=:container,
+                       servingSizeValue=:servingSizeValue,
+                       servingSizeUnits=:servingSizeUnits, notes=:notes
+                     where number=:number");
+
+  $s->bindParam(':number', $tapNo);
+  $s->bindParam(':name', $_POST['name']);
+  $s->bindParam(':style', $_POST['style']);
+  $s->bindParam(':brewDate', $_POST['brewDate']);
+  $s->bindParam(':og', $_POST['og']);
+  $s->bindParam(':fg', $_POST['fg']);
+  $s->bindParam(':srm', $_POST['srm']);
+  $s->bindParam(':ibu', $_POST['ibu']);
+  $s->bindParam(':container', $_POST['container']);
+  $s->bindParam(':servingSizeValue', $_POST['servingSizeValue']);
+  $s->bindParam(':servingSizeUnits', $_POST['servingSizeUnits']);
+  $s->bindParam(':notes', $_POST['notes']);
+ 
+  $r = $s->execute();
+
   if ($r) {
     echo "updated!";
   } else {
@@ -25,7 +35,9 @@ if (isset($_POST['number'])) {
 }
 
 $tapNo = $tapNo ? $tapNo : $_GET['number'];
-$r = $db->query("select * from taps where number = $tapNo");
+$s = $db->prepare("select * from taps where number = :number");
+$s->bindParam(':number', $tapNo);
+$r = $s->execute();
 $tap = $r->fetchArray(SQLITE3_ASSOC);
 ?>
 
@@ -65,6 +77,8 @@ $tap = $r->fetchArray(SQLITE3_ASSOC);
     <option value="fl. oz." <?php echo ($tap['servingSizeUnits'] == "fl. oz." ? "selected" : ""); ?>>fl. oz.</option>
     <option value="ml" <?php echo ($tap['servingSizeUnits'] == "ml" ? "selected" : ""); ?>>ml</option>
   </td>
+ </tr><tr>
+  <th>Notes:</th><td><textarea name="notes"><?php echo $tap['notes']; ?></textarea></td>
  </tr>
 </table>
 <input type="hidden" name="number" value="<?php echo $tapNo; ?>" />

@@ -1,2 +1,1 @@
-create table taps (number integer, name text, style text, brewDate text, og real, fg real, srm real, ibu integer, container text, servingSizeValue real, serving SizeUnits text);
-
+CREATE TABLE taps (number integer, name text, style text, brewDate text, og real, fg real, srm real, ibu integer, container text, servingSizeValue real, servingSizeUnits text, notes text);

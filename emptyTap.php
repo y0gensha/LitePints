@@ -5,7 +5,7 @@ $db = new SQLite3('db/db.db');
 
 if (isset($_GET['number'])) {
   $tapNo = $_GET['number'];
-  $r=$db->query("update taps set 
+  $s=$db->prepare("update taps set 
                        name='',
                        style='',
                        brewDate='',
@@ -16,7 +16,10 @@ if (isset($_GET['number'])) {
                        container='',
                        servingSizeValue=0,
                        servingSizeUnits=''
-                      where number=".$_GET['number']);
+                       notes=''
+                      where number=:number");
+  $s->bindParam(':number', $tapNo);
+  $r = $s->execute();
   if ($r) {
     header("Location: showTaps.php");
   } else {
