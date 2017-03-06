@@ -4,7 +4,6 @@ body {
   margin: 0px;
   background-color: #000;
   color: #fff;
-  font-size: 2em;
 }
 
 h2, h3 {
@@ -20,8 +19,7 @@ table.mainTable {
   border: 0px;
   border-collapse: collapse;
 }
-table.mainTable td, th {
-  width: 25%;
+table.mainTable td, table.mainTable th {
   border: 1px solid #999;
 }
 
@@ -37,3 +35,39 @@ span.tapcircle {
   width: 2em;
 }
 /* end from RaspberryPints */
+
+table.tapList {
+  border: 1px solid #999;
+}
+table.tapList td, table.tapList tr, table.taplist th {
+  border: 1px solid #999; 
+}
+
+a.button:link, a.button:visited {
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 0px 6px 0px 6px;
+  margin: 2px 2px 2px 2px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+a.button:hover, a.button:active {
+  background-color: #cccccc;
+}
+
+table.formTable th {
+  text-align: right;
+}
+table.formTable th, table.formTable td {
+  border: 1px solid #999;
+}
+
+iframe.preview {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

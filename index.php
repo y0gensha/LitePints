@@ -3,8 +3,8 @@
 require_once 'include/util.php';
 
 $taps = array();
-
 $db = new SQLite3('db/db.db');
+
 $r = $db->query("select * from taps order by number");
 while ($tap = $r->fetchArray(SQLITE3_ASSOC)) {
   $taps[$tap['number']] = $tap;
@@ -15,6 +15,7 @@ while ($tap = $r->fetchArray(SQLITE3_ASSOC)) {
   $taps[$tap['number']]['rgb'] = srmToRgb($tap['srm']);
 }
 $numberOfTaps = sizeof($taps);
+$colWidth = floor(100/$numberOfTaps);
 ?>
 <html>
 <head>
@@ -24,6 +25,9 @@ $numberOfTaps = sizeof($taps);
 </head>
 <body>
 <table class="mainTable">
+<?php for($i=1; $i<=$numberOfTaps; $i++) { ?>
+<col width="<?php echo $colWidth; ?>%" />
+<?php } ?>
 <tr>
  <?php for($i=1; $i<=$numberOfTaps; $i++) { ?>
  <td><span class="tapcircle"><?php echo $i; ?></span></td>

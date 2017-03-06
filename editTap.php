@@ -1,4 +1,9 @@
 <html>
+<head>
+  <title>Edit Tap</title>
+  <meta http-equiv="refresh" content="300">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 <?php
 $db = new SQLite3('db/db.db');
@@ -41,7 +46,7 @@ $r = $s->execute();
 $tap = $r->fetchArray(SQLITE3_ASSOC);
 ?>
 
-<a href="showTaps.php">Back to tap list</a>
+<a class="button" href="showTaps.php">Back to tap list</a>
 <form method="POST" action="editTap.php">
 <table class="formTable">
  <tr><th>Number:</th><td><?php echo $tapNo; ?></td></tr>
@@ -78,7 +83,7 @@ $tap = $r->fetchArray(SQLITE3_ASSOC);
     <option value="ml" <?php echo ($tap['servingSizeUnits'] == "ml" ? "selected" : ""); ?>>ml</option>
   </td>
  </tr><tr>
-  <th>Notes:</th><td><textarea name="notes"><?php echo $tap['notes']; ?></textarea></td>
+  <th>Notes:</th><td><textarea maxlength="400" name="notes" cols="40" rows="10"><?php echo $tap['notes']; ?></textarea></td>
  </tr>
 </table>
 <input type="hidden" name="number" value="<?php echo $tapNo; ?>" />

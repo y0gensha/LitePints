@@ -1,4 +1,9 @@
 <html>
+<head>
+  <title>Tap List</title>
+  <meta http-equiv="refresh" content="300">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 <?php
 $db = new SQLite3('db/db.db');
@@ -15,7 +20,7 @@ if (isset($_GET['number'])) {
                        ibu=0,
                        container='',
                        servingSizeValue=0,
-                       servingSizeUnits=''
+                       servingSizeUnits='',
                        notes=''
                       where number=:number");
   $s->bindParam(':number', $tapNo);
@@ -28,3 +33,6 @@ if (isset($_GET['number'])) {
 }
 
 echo "error, must specify tap number";
+?>
+</body>
+</html>
