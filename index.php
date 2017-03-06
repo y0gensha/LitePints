@@ -49,7 +49,7 @@ $colWidth = floor(100/$numberOfTaps);
          $container = ($taps[$i]['name'] != "") ? $taps[$i]['container'] : "standardpint&empty=yes";
   ?>
  <td>
-   <img src="img/containerSvg.php?container=<?php echo $container; ?>&rgb=<?php echo $taps[$i]['rgb']; ?>" />
+   <img width="100%" src="img/containerSvg.php?container=<?php echo $container; ?>&rgb=<?php echo $taps[$i]['rgb']; ?>" />
  </td>
  <?php } ?>
 </tr><tr>
