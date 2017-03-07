@@ -5,6 +5,7 @@ body {
   background-color: #000;
   color: #fff;
   background-image: url('img/background.png');
+  font-family: Andale Mono, monospace;
 }
 
 h2, h3 {
@@ -22,7 +23,7 @@ table.mainTable {
 }
 table.mainTable td, table.mainTable th {
   border: 1px solid #999;
-  font-size: 1.4em;
+  font-size: 1.5em;
   padding: 5px;
 }
 td.notes {
