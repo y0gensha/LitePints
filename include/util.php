@@ -44,5 +44,21 @@ function calcUnitsEth($beer) { /* one unit is 10 ml of ethanol */
   return number_format($beer['servingSizeValue']*$abv/100*$scale ,1,'.',',');
 }
 
+function calcCarbs($beer) {
+  /* these are from  the homberewer's association and are for a 12 fl. oz. serving */
+  $calfromcarbs = 3550.0 * $beer['fg'] * ((0.1808 * $beer['og']) + (0.8192 * $beer['fg']) - 1.0004);
+
+  if ($beer['servingSizeUnits'] == 'ml') {
+    $scale = $beer['servingSizeValue'] / 12 / 29.5735;
+  } elseif ($beer['servingSizeUnits'] == 'fl. oz.') {
+    $scale = $beer['servingSizeValue'] / 12;
+  } else {
+    return 0;
+  }
+
+  /* Assume 4 Kcal per gram */
+  return number_format($calfromcarbs*$scale/4 ,1,'.',',');
+}
+
 ?>
 

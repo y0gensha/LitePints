@@ -11,6 +11,7 @@ while ($tap = $r->fetchArray(SQLITE3_ASSOC)) {
   $taps[$tap['number']]['servingSize'] = $tap['servingSizeValue'] . " " . $tap['servingSizeUnits'];
   $taps[$tap['number']]['abv'] = calcAbv($tap);
   $taps[$tap['number']]['kcal'] = calcKcal($tap);
+  $taps[$tap['number']]['carbs'] = calcCarbs($tap);
   $taps[$tap['number']]['unitsEth'] = calcUnitsEth($tap);
   $taps[$tap['number']]['rgb'] = srmToRgb($tap['srm']);
 }
@@ -65,7 +66,7 @@ $colWidth = floor(100/$numberOfTaps);
  <?php } ?>
 </tr><tr>
  <?php for($i=1; $i<=$numberOfTaps; $i++) { ?>
- <td><span><?php echo $taps[$i]['kcal']." kcal per ".$taps[$i]['servingSize']; ?></span></td>
+ <td><span><?php echo $taps[$i]['servingSize'].'<br/>'.$taps[$i]['kcal']." kcal<br/>".$taps[$i]['carbs'].' g carbs'; ?></span></td>
  <?php } ?>
 </tr><tr>
  <?php for($i=1; $i<=$numberOfTaps; $i++) {
